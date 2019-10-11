@@ -1,0 +1,41 @@
+PROBLEM
+-------
+A08.  Implement Output Port component of a router architecture with N output lines. It will receive packets from switch fabric and based on msg destination tag,  it will transmit  packets on ports 40000+100*N+X, where X corresponds to last 2 digits of lowest USN number in the team.  For example, if lowest USN is 1KS17CS005 and N=3,then it will transmit data on  Ports number 40005, 40105, 40205. It maintains equal size separate buffer for each input port. The packets are transmitted to switch fabric at a given rate T from all input ports. The message received (using nc) has the  structure: "message data" + ":" + "Output Port number". The process (output port) should display the full message along with time when received or sent.
+The program will be invoked as
+
+./InputPort <N> <P> <B> <PS> <T>
+  
+./80 3 40000 40054 1b/s
+N - Number of output port lines
+  
+P - Base value of output socket port number (e.g. 40000)
+ 
+B - buffer size for each output port
+  
+PO - UDP port number on which it will receive packets from switch fabric
+  
+T - Transmit rate of packets on each output port.
+ 
+
+LINKS USED TO UNDERSTAND ARCHITECTURE AND PROGRAMMING:
+-------------------------------------------------------
+http://www2.ic.uff.br/~michael/kr1999/4-network/4_06-inside.htm
+https://www.geeksforgeeks.org/socket-programming-python/
+
+DESCRIPTION OF THE PROGRAM
+----------------------------
+The python code written imports the necessary packages, and ecpects number of ports,base value of ports,buffer size as arguments. the lowest usn of the members in the team (54) is initialized and the output port numbers are generated using 40000+ 100*n +d formula using n=3 in the loop resulting in 40054,40154,40254. Input is provided in the formate of "message data" :output port .When the 5 parameters are recognised udp socket is created. message is pushed onto the port specified
+
+TO RUN THE PROGRAM
+------------------
+python3 router.py 3 40000 4069 10 
+nc -u -l portnumber(40054 or 40154 or 40245)
+
+
+DIFFICULTIES FACED AND APPROACH TO THE PROBLEM
+----------------------------------------------
+1) For quite a while we chose tcp protocol, which had to be discarded and we shifted to udp protocol
+   Since tcp is connection oriented it requires the host and port to bind, therefore it doesnt allow shifting between the ports. while udp allows    us to choose the port specified and shift
+2)Socket programming is a new concept and we havent reached there in lab,so debugging proved to be a little difficult.but the sites mentioned   above we were able to overcome it. we also posted parts of the code on stack overflow and gained some inputs that helped us debug. 
+
+

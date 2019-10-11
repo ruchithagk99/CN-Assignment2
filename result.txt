@@ -1,0 +1,19 @@
+terminal 1
+pavithra@beaver:~$ cd Desktop
+pavithra@beaver:~/Desktop$ python3 router.py 3 40000 4069 10
+[40054, 40154, 40254]
+pavithra@beaver:~/Desktop$ python3 router.py 3 40000 4069 10
+[40054, 40154, 40254]
+pavithra@beaver:~/Desktop$ python3 router.py 3 40000 4069 10
+[40054, 40154, 40254]
+
+Terminal 2
+pavithra@beaver:~$ nc -ul 40054
+hello from the other side :40054
+pavithra@beaver:~$ nc -ul 40154
+hello from the other side :40154
+pavithra@beaver:~$ nc -ul 40154
+hello from the other side :40154
+
+In terminal 2 run the nc command specifying the output terminal and in terminal 1 run the program using python3 . the output appears in the therminal 2 in the format of message:output port
+
